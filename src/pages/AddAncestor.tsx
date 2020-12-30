@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { putAncestorInfo, updateAncestorInfo } from "../network/requests";
+import { addAncestorToDB } from "../network/requests";
 import { Page } from "../App";
 
 const PersonDetailsForm = styled.form`
@@ -32,7 +32,7 @@ function AddAncestorPage() {
 
   const onFormSubmit = () => {
     const id = lastName + Math.floor(Math.random() * Math.floor(2000));
-    putAncestorInfo({
+    addAncestorToDB({
       [id]: {
         id,
         firstName,
@@ -55,6 +55,7 @@ function AddAncestorPage() {
 
   return (
     <Page>
+      <h1>Add Ancestor</h1>
       <PersonDetailsForm
         onSubmit={(e) => {
           e.preventDefault();

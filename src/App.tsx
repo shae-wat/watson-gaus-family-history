@@ -28,10 +28,10 @@ function App() {
     <Router>
       <AppHeader>Gaus Family History</AppHeader>
       <Switch>
-        <Route path="/">
+        <Route path="/" exact>
           <GausTreePage />
         </Route>
-        <Route path="/add-ancestor">
+        <Route path="/add" exact>
           <AddAncestorPage />
         </Route>
       </Switch>

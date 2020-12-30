@@ -1,6 +1,11 @@
 import axios from "axios";
 
-export const putAncestorInfo = (data: any) =>
+export const getAncestorsForTreeVisualization = () =>
+  axios.get(
+    `https://watson-gaus-family-history-default-rtdb.firebaseio.com/ancestors.json`
+  );
+
+export const addAncestorToDB = (data: any) =>
   axios.patch(
     `https://watson-gaus-family-history-default-rtdb.firebaseio.com/ancestors.json`,
     data
