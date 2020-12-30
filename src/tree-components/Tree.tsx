@@ -1,5 +1,6 @@
 import React from "react";
 import { Ancestor } from "../types/data";
+import AncestorTreeTile from "./AncestorTreeTile";
 
 function Tree({
   treeData,
@@ -16,8 +17,8 @@ function Tree({
 
   return (
     <div>
-      <div>{treeData[initialMother]?.firstName}</div>
-      <div>{treeData[initialFather]?.firstName}</div>
+      <AncestorTreeTile ancestor={treeData[initialMother]} />
+      <AncestorTreeTile ancestor={treeData[initialFather]} />
     </div>
   );
 }
