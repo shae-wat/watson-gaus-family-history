@@ -1,11 +1,14 @@
 import React from "react";
+import { Ancestor } from "../types/data";
 
 function Tree({
   treeData,
   initialMother,
   initialFather,
 }: {
-  treeData: any;
+  treeData: {
+    [key: string]: Ancestor;
+  };
   initialMother: string;
   initialFather: string;
 }) {
@@ -13,8 +16,8 @@ function Tree({
 
   return (
     <div>
-      <div>${initialMother}</div>
-      <div>${initialFather}</div>
+      <div>{treeData[initialMother]?.firstName}</div>
+      <div>{treeData[initialFather]?.firstName}</div>
     </div>
   );
 }

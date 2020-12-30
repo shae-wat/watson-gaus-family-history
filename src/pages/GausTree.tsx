@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Page } from "../App";
+import { Ancestor } from "../types/data";
 import { getAncestorsForTreeVisualization } from "../network/requests";
 import { Tree } from "../tree-components";
 
@@ -8,9 +9,11 @@ function GausTreePage() {
 
   const requestData = async () => {
     try {
-      const res = await getAncestorsForTreeVisualization();
+      const res: {
+        [key: string]: Ancestor;
+      } = await getAncestorsForTreeVisualization();
       console.log("res", res);
-      setTreeData(res?.data);
+      setTreeData(res);
     } catch (e) {
       console.error(e);
     }
