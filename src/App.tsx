@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { putAncestorInfo, updateAncestorInfo } from "./network/requests";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AddAncestorPage from "./pages/AddAncestor";
+import GausTreePage from "./pages/GausTree";
 
 const AppHeader = styled.header`
   background-color: #282c34;
@@ -13,7 +15,7 @@ const AppHeader = styled.header`
   color: white;
 `;
 
-const Page = styled.section`
+export const Page = styled.section`
   min-height: 90vh;
   padding: 24px 16px;
   max-width: 900px;
@@ -21,142 +23,19 @@ const Page = styled.section`
   margin-left: auto;
 `;
 
-const PersonDetailsForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  > input {
-    height: 32px;
-    font-size: 24px;
-    margin-bottom: 16px;
-  }
-  > button {
-    background-color: #282c34;
-    color: white;
-    height: 50px;
-    font-size: 24px;
-    margin-top: 48px;
-  }
-`;
-
 function App() {
-  const [childId, setChildId] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [dateOfDeath, setDateOfDeath] = useState("");
-  const [placeOfBirth, setPlaceOfBirth] = useState("");
-  const [placeOfDeath, setPlaceOfDeath] = useState("");
-  const [isImmigrant, setIsImmigrant] = useState(false);
-
-  const onFormSubmit = () => {
-    const id = lastName + Math.floor(Math.random() * Math.floor(2000));
-    putAncestorInfo({
-      [id]: {
-        id,
-        firstName,
-        lastName,
-        dateOfBirth,
-        dateOfDeath,
-        placeOfBirth,
-        placeOfDeath,
-        isImmigrant,
-        childId,
-        resources: {
-          graveInfo: {},
-          pictures: {},
-          pdfs: {},
-          proofOfTreeLocation: {},
-        },
-      },
-    });
-  };
-
   return (
-    <div>
-      <AppHeader>Family History</AppHeader>
-      <Page>
-        <PersonDetailsForm
-          onSubmit={(e) => {
-            e.preventDefault();
-            onFormSubmit();
-          }}
-        >
-          <input
-            type="text"
-            id="child_id"
-            name="child_id"
-            placeholder="Child ID"
-            onChange={(e) => {
-              setChildId(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            id="first_name"
-            name="first_name"
-            placeholder="First name"
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            id="last_name"
-            name="last_name"
-            placeholder="Last name"
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-          />
-          <p>Date of birth</p>
-          <input
-            type="date"
-            id="date_of_birth"
-            name="date_of_birth"
-            onChange={(e) => {
-              setDateOfBirth(e.target.value);
-            }}
-          />
-          <p>Date of death</p>
-          <input
-            type="date"
-            id="date_of_death"
-            name="date_of_death"
-            onChange={(e) => {
-              setDateOfDeath(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            id="place_of_birth"
-            name="place_of_birth"
-            placeholder="Place of birth"
-            onChange={(e) => {
-              setPlaceOfBirth(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            id="place_of_death"
-            name="place_of_death"
-            placeholder="Place of death"
-            onChange={(e) => {
-              setPlaceOfDeath(e.target.value);
-            }}
-          />
-          <p>Is immigrant</p>
-          <input
-            type="checkbox"
-            id="immigrant"
-            name="immigrant"
-            onChange={() => {
-              setIsImmigrant(!isImmigrant);
-            }}
-          />
-          <button type="submit">Submit</button>
-        </PersonDetailsForm>
-      </Page>
-    </div>
+    <Router>
+      <AppHeader>Gaus Family History</AppHeader>
+      <Switch>
+        <Route path="/">
+          <GausTreePage />
+        </Route>
+        <Route path="/add-ancestor">
+          <AddAncestorPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
