@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { putAncestorInfo } from "./network/requests";
+import { putAncestorInfo, updateAncestorInfo } from "./network/requests";
 
 const AppHeader = styled.header`
   background-color: #282c34;
@@ -39,6 +39,7 @@ const PersonDetailsForm = styled.form`
 `;
 
 function App() {
+  const [childId, setChildId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -48,15 +49,25 @@ function App() {
   const [isImmigrant, setIsImmigrant] = useState(false);
 
   const onFormSubmit = () => {
-    console.log("onFormSubmit");
+    const id = lastName + Math.floor(Math.random() * Math.floor(2000));
     putAncestorInfo({
-      firstName,
-      lastName,
-      dateOfBirth,
-      dateOfDeath,
-      placeOfBirth,
-      placeOfDeath,
-      isImmigrant,
+      [id]: {
+        id,
+        firstName,
+        lastName,
+        dateOfBirth,
+        dateOfDeath,
+        placeOfBirth,
+        placeOfDeath,
+        isImmigrant,
+        childId,
+        resources: {
+          graveInfo: {},
+          pictures: {},
+          pdfs: {},
+          proofOfTreeLocation: {},
+        },
+      },
     });
   };
 
@@ -70,6 +81,15 @@ function App() {
             onFormSubmit();
           }}
         >
+          <input
+            type="text"
+            id="child_id"
+            name="child_id"
+            placeholder="Child ID"
+            onChange={(e) => {
+              setChildId(e.target.value);
+            }}
+          />
           <input
             type="text"
             id="first_name"
