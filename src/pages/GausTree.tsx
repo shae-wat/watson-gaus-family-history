@@ -12,7 +12,6 @@ function GausTreePage() {
       const res: {
         [key: string]: Ancestor;
       } = await getAncestorsForTreeVisualization();
-      console.log("res", res);
       setTreeData(res);
     } catch (e) {
       console.error(e);
