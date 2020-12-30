@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components'
-import {putAncestorInfo} from './network/requests'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { putAncestorInfo } from "./network/requests";
 
 const AppHeader = styled.header`
   background-color: #282c34;
@@ -11,7 +11,7 @@ const AppHeader = styled.header`
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-`
+`;
 
 const Page = styled.section`
   min-height: 90vh;
@@ -19,7 +19,7 @@ const Page = styled.section`
   max-width: 900px;
   margin-right: auto;
   margin-left: auto;
-`
+`;
 
 const PersonDetailsForm = styled.form`
   display: flex;
@@ -36,46 +36,104 @@ const PersonDetailsForm = styled.form`
     font-size: 24px;
     margin-top: 48px;
   }
-`
+`;
 
 function App() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [dateOfDeath, setDateOfDeath] = useState('');
-  const [placeOfBirth, setPlaceOfBirth] = useState('');
-  const [placeOfDeath, setPlaceOfDeath] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfDeath, setDateOfDeath] = useState("");
+  const [placeOfBirth, setPlaceOfBirth] = useState("");
+  const [placeOfDeath, setPlaceOfDeath] = useState("");
   const [isImmigrant, setIsImmigrant] = useState(false);
 
   const onFormSubmit = () => {
-    console.log('onFormSubmit');
-    putAncestorInfo({firstName, lastName, dateOfBirth, dateOfDeath, placeOfBirth, placeOfDeath, isImmigrant})
-  }
+    console.log("onFormSubmit");
+    putAncestorInfo({
+      firstName,
+      lastName,
+      dateOfBirth,
+      dateOfDeath,
+      placeOfBirth,
+      placeOfDeath,
+      isImmigrant,
+    });
+  };
 
   return (
     <div>
-      <AppHeader>
-        Family History
-      </AppHeader>
+      <AppHeader>Family History</AppHeader>
       <Page>
-        <PersonDetailsForm onSubmit={(e)=>{e.preventDefault(); onFormSubmit();}}>
-          <input type="text" id="first_name" name="first_name" placeholder="First name" required
-          onChange={(e)=>{setFirstName(e.target.value)}}/>
-          <input type="text" id="last_name" name="last_name" placeholder="Last name" required
-            onChange={(e)=>{setLastName(e.target.value)}}/>
+        <PersonDetailsForm
+          onSubmit={(e) => {
+            e.preventDefault();
+            onFormSubmit();
+          }}
+        >
+          <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            placeholder="First name"
+            onChange={(e) => {
+              setFirstName(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            placeholder="Last name"
+            onChange={(e) => {
+              setLastName(e.target.value);
+            }}
+          />
           <p>Date of birth</p>
-          <input type="date" id="date_of_birth" name="date_of_birth" required
-            onChange={(e)=>{setDateOfBirth(e.target.value)}} />
+          <input
+            type="date"
+            id="date_of_birth"
+            name="date_of_birth"
+            onChange={(e) => {
+              setDateOfBirth(e.target.value);
+            }}
+          />
           <p>Date of death</p>
-          <input type="date" id="date_of_death" name="date_of_death" required
-          onChange={(e)=>{setDateOfDeath(e.target.value)}} />
-          <input type="text" id="place_of_birth" name="place_of_birth" placeholder="Place of birth" required
-          onChange={(e)=>{setPlaceOfBirth(e.target.value)}} />
-          <input type="text" id="place_of_death" name="place_of_death" placeholder="Place of death" required
-          onChange={(e)=>{setPlaceOfDeath(e.target.value)}} />
-          <p>Is immigrant</p><input type="checkbox" id="immigrant" name="immigrant"
-          onChange={()=>{setIsImmigrant(!isImmigrant)}}/>
-          <button type="submit" >Submit</button>
+          <input
+            type="date"
+            id="date_of_death"
+            name="date_of_death"
+            onChange={(e) => {
+              setDateOfDeath(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            id="place_of_birth"
+            name="place_of_birth"
+            placeholder="Place of birth"
+            onChange={(e) => {
+              setPlaceOfBirth(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            id="place_of_death"
+            name="place_of_death"
+            placeholder="Place of death"
+            onChange={(e) => {
+              setPlaceOfDeath(e.target.value);
+            }}
+          />
+          <p>Is immigrant</p>
+          <input
+            type="checkbox"
+            id="immigrant"
+            name="immigrant"
+            onChange={() => {
+              setIsImmigrant(!isImmigrant);
+            }}
+          />
+          <button type="submit">Submit</button>
         </PersonDetailsForm>
       </Page>
     </div>
